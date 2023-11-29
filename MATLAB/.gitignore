@@ -1,0 +1,50 @@
+# MATLAB
+*.asv
+*.mex*
+*.mat
+*.fig
+*.p
+*.mdl
+*.mdlp
+*.slx
+*.slxp
+simResults/
+slprj/
+rtw/
+*.autosave
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Compiled Files
+*.mexa64
+*.mexmaci64
+*.mexw64
+*.mexw32
+
+# Simulink Code Generation
+*_ert_rtw/
+*_grt_rtw/
+*_slrt_rtw/
+
+# MATLAB Cache
+MATLABCache/
+
+# MATLAB preferences
+matlabprefs.mat
+
+# Temporary files
+*.tmp
+*.tbd
+*.log
+
+# Backup files
+*.bak
