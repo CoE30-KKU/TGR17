@@ -1,0 +1,49 @@
+version: "3"
+services:
+  api:
+    image: "tgr2023_fastapi"
+    container_name: "fastapi"
+    volumes:
+      - ./fastapi/app:/code/app
+    ports:
+      - "80:80"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    env_file:
+      - .env
+    volumes:
+      - ./mongodb:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      - "MONGO_INITDB_DATABASE=${MONGO_DB}"
+      - "MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}"
+      - "MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}"
+
+  emqx:
+    image: emqx/emqx:latest
+    container_name: emqx
+    environment:
+      - "EMQX_NAME=emqx"
+      - "EMQX_HOST=0.0.0.0"
+      - "EMQX_CLUSTER__DISCOVERY_STRATEGY=static"
+      - "EMQX_DASHBOARD__DEFAULT_USERNAME=${EMQX_DASHBOARD__DEFAULT_USERNAME}"
+      - "EMQX_DASHBOARD__DEFAULT_PASSWORD=${EMQX_DASHBOARD__DEFAULT_PASSWORD}"
+    ports:
+      - "18083:18083"
+      - "1883:1883"
+
+  streamlit:
+    image: tgr2023_streamlit
+    container_name: streamlit
+    volumes:
+      - ./streamlit/app:/code
+      - ./streamlit/config:/root/.streamlit
+    ports:
+      - "8501:8501"
+    depends_on:
+      - mongodb
